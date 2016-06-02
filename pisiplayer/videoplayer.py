@@ -21,7 +21,8 @@ class Player(QVideoWidget):
 
         self.player.setVideoOutput(self)
 
-
+    def sliderChanged(self, pos):
+        self.player.setPosition(pos)
 
     def mousePressEvent(self, event):
         print(event.type())

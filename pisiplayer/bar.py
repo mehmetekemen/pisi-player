@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
 import time
+from .baritems.slider import PlayerSlider
 
 class Bar(QWidget):
 
@@ -15,10 +16,8 @@ class Bar(QWidget):
         self.vlayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.vlayout)
 
-        self.video_slider = QSlider(self)
+        self.video_slider = PlayerSlider(self)
         self.video_slider.triggerAction(QAbstractSlider.SliderMove)
-        self.video_slider.setMinimum(0)
-        self.video_slider.setMaximum(100)
         self.video_slider.setOrientation(Qt.Horizontal)
         self.vlayout.addWidget(self.video_slider)
 
@@ -81,6 +80,7 @@ class Bar(QWidget):
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
 
         self.fullscreen_button.clicked.connect(self.fullScreenState)
+
 
 
     def fullScreenState(self):

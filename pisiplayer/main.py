@@ -3,10 +3,10 @@ from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QMediaMetaData
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QColor, QFont
 from PyQt5.QtCore import QUrl, Qt, QEvent
-from videoplayer import Player
-from bar import Bar
+from .videoplayer import Player
+from .bar import Bar
 import sys
-import pisiplayer_rc
+from pisiplayer import pisiplayer_rc
 
 
 class PisiPlayer(QWidget):
@@ -38,6 +38,8 @@ class PisiPlayer(QWidget):
         self.bar.play_and_pause_button.clicked.connect(self.playOrPause)
         self.bar.sound_button.clicked.connect(self.player.mutedState)
         self.bar.sound_volume_slider.valueChanged.connect(self.player.setVolume)
+
+        self.bar.video_slider.sliderMoved.connect(self.player.sliderChanged)
 
 
     def playOrPause(self):
