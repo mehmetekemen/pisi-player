@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Pisi Player
+Name[tr]=Pisi Player
+GenericName=Pisi Player for Pisi Linux
+GenericName[tr]=Pisi Linux için Pisi Player
+Icon=pisiplayer
+Exec=pisiplayer
+Terminal=false
+StartupNotify=false
+Categories=Multimedia;

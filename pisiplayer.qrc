@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/images/play.svg</file>
+        <file>data/images/pause.svg</file>
+        <file>data/images/stop.svg</file>
+        <file>data/images/volume.svg</file>
+        <file>data/images/volumeX.svg</file>
+        <file>data/images/volume1.svg</file>
+        <file>data/images/volume2.svg</file>
+        <file>data/images/volume3.svg</file>
+        <file>data/images/fullscreen.svg</file>
+        <file>data/images/altyazi.svg</file>
+        <file>data/images/pisiplayer.svg</file>
+    </qresource>
+</RCC>
