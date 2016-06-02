@@ -1,12 +1,11 @@
 [Desktop Entry]
 Type=Application
-Version=1.0
 Name=Pisi Player
 Name[tr]=Pisi Player
 GenericName=Pisi Player for Pisi Linux
 GenericName[tr]=Pisi Linux için Pisi Player
 Icon=pisiplayer
 Exec=pisiplayer
-Terminal=false
-StartupNotify=false
-Categories=Multimedia;
+X-KDE-StartupNotify=false
+Categories=Qt;KDE;AudioVideo;Player;Video;
+MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;audio/aac;audio/flac;audio/ogg;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
