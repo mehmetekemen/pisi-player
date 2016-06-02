@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, qApp, QVBoxLayout, QWidget
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QMediaMetaData
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QColor, QFont
@@ -17,11 +17,13 @@ class PisiPlayer(QWidget):
         self.setWindowIcon(QIcon(":/data/images/pisiplayer.svg"))
         self.setStyleSheet("background-color: rgb(0, 0, 0);")
 
+
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
         self.player = Player(self)
+        self.player.playerPlayOrOpen(qApp.arguments())
         self.layout.addWidget(self.player)
 
         self.bar = Bar(self)
@@ -88,7 +90,6 @@ class PisiPlayer(QWidget):
 def main():
 
     app = QApplication(sys.argv)
-
     pisiplayer = PisiPlayer()
     pisiplayer.show()
 

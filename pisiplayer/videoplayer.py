@@ -9,33 +9,31 @@ import sys
 class Player(QVideoWidget):
     def __init__(self, parent=None):
         super().__init__()
-        #self.resize(640, 450)
         self.parent = parent
-
         self.setMouseTracking(True)
 
         self.player = QMediaPlayer()
-        content = QMediaContent(QUrl.fromLocalFile(sys.argv[1]))
-        self.player.setMedia(content)
-        self.player.play()
-
         self.player.setVideoOutput(self)
+
+    def playerPlayOrOpen(self, arg=None):
+        if type(arg) == list and len(arg) > 1:
+            content = QMediaContent(QUrl.fromLocalFile(arg[1]))
+            self.player.setMedia(content)
+            self.play()
+
+    def addVideo(self, video):
+        content = QMediaContent(QUrl.fromLocalFile(video))
+        self.player.setMedia(content)
+        self.play()
 
     def sliderChanged(self, pos):
         self.player.setPosition(pos)
-
-    def mousePressEvent(self, event):
-        print(event.type())
-        event.accept()
-
 
     def mouseDoubleClickEvent(self, event):
         if not self.parent.isFullScreen():
             self.parent.showFullScreen()
         else:
             self.parent.showNormal()
-        event.accept()
-
 
     def play(self):
         self.player.play()
