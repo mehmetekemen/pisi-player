@@ -29,7 +29,7 @@ setup(
     name = "pisiplayer",
     scripts = ["script/pisiplayer"],
     packages = find_packages(),
-    version = "0.1",
+    version = "0.2",
     license = "GPL v3",
     description = "Video Player for Pisi Linux",
     author = "Metehan Özbek",
