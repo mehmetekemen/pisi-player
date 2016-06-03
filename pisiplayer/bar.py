@@ -9,7 +9,7 @@ class Bar(QWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.setFixedHeight(40)
-
+        self.setStyleSheet("QPushButton:flat { border: none; }")
         self.parent = parent
 
         self.vlayout = QVBoxLayout()
