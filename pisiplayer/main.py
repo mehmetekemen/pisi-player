@@ -1,31 +1,32 @@
-from PyQt5.QtWidgets import QApplication, qApp, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, qApp, QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSizeF, QTimer
 from .videoplayer import Player
 from .bar import Bar
 import sys
 from pisiplayer import pisiplayer_rc
 
 
-class PisiPlayer(QWidget):
+class PisiPlayer(QGraphicsView):
     def __init__(self, parent=None):
         super().__init__()
         self.resize(640, 480)
         self.setWindowTitle("Pisi Player")
         self.setWindowIcon(QIcon(":/data/images/pisiplayer.svg"))
-        self.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.setStyleSheet("background-color: black; border: none;")
+        self.setScene(QGraphicsScene())
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
 
-        self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.setLayout(self.layout)
+
 
         self.player = Player(self)
+        self.scene().addItem(self.player)
         self.player.playerPlayOrOpen(qApp.arguments())
-        self.layout.addWidget(self.player)
 
         self.bar = Bar(self)
-        self.layout.addWidget(self.bar)
+        self.scene().addWidget(self.bar)
 
         self.player.player.durationChanged.connect(self.bar.videoSliderMax)
         self.player.player.positionChanged.connect(self.bar.videoSliderValue)
@@ -41,12 +42,29 @@ class PisiPlayer(QWidget):
 
         self.bar.video_slider.sliderMoved.connect(self.player.sliderChanged)
 
+        self.cursorTimer = QTimer(self)
+        self.cursorTimer.timeout.connect(self.mouseAndBarHideOrShow)
+        self.cursorTimer.start(3000)
+
+    def mouseAndBarHideOrShow(self):
+        self.bar.hide()
+
+    def mouseMoveEvent(self, event):
+        if event.pos():
+            self.bar.show()
+            self.cursorTimer.start(3000)
 
     def playOrPause(self):
         if self.player.player.state() == self.player.player.PlayingState:
             self.player.pause()
         elif self.player.player.state() == self.player.player.StoppedState or self.player.player.PausedState:
             self.player.play()
+
+    def mouseDoubleClickEvent(self, event):
+        if not self.isFullScreen():
+            self.showFullScreen()
+        else:
+            self.showNormal()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape and self.isFullScreen():
@@ -90,6 +108,11 @@ class PisiPlayer(QWidget):
             self.player.player.setPosition(self.player.player.position() - 60000)
         else:
             self.player.player.setPosition(self.player.player.position() + 60000)
+
+    def resizeEvent(self, event):
+        self.scene().setSceneRect(0, 0, event.size().width(), event.size().height())
+        self.player.setSize(QSizeF(event.size().width(), event.size().height()))
+        self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
 
 
 def main():
