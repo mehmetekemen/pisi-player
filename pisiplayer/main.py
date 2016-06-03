@@ -87,6 +87,13 @@ class PisiPlayer(QWidget):
 
         super().keyPressEvent(event)
 
+    def wheelEvent(self, event):
+        if event.angleDelta().y() < 0:
+            self.player.player.setPosition(self.player.player.position() - 60000)
+        else:
+            self.player.player.setPosition(self.player.player.position() + 60000)
+
+
 def main():
 
     app = QApplication(sys.argv)
