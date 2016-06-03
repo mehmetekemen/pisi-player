@@ -1,13 +1,12 @@
-from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtMultimediaWidgets import QGraphicsVideoItem
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 
 
-class Player(QVideoWidget):
+class Player(QGraphicsVideoItem):
     def __init__(self, parent=None):
         super().__init__()
         self.parent = parent
-        self.setMouseTracking(True)
 
         self.player = QMediaPlayer()
         self.player.setVideoOutput(self)
