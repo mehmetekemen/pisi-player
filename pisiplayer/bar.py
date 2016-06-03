@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
 import time
@@ -58,6 +58,14 @@ class Bar(QWidget):
 
         self.hlayout.addItem(QSpacerItem(100, 10, QSizePolicy.Preferred, QSizePolicy.Minimum))
 
+        self.openfile_button = QPushButton(self)
+        self.openfile_button.setFlat(True)
+        self.openfile_button.setIcon(QIcon.fromTheme("document-open"))
+        self.openfile_button.setIconSize(QSize(24, 24))
+        self.openfile_button.setFixedSize(24, 24)
+
+        self.hlayout.addWidget(self.openfile_button)
+
         self.cc_button = QPushButton(self)
         self.cc_button.setFlat(True)
         self.cc_button.setIcon(QIcon(":data/images/altyazi.svg"))
@@ -77,9 +85,14 @@ class Bar(QWidget):
         self.hlayout.addItem(QSpacerItem(10, 10, QSizePolicy.Preferred, QSizePolicy.Minimum))
 
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
-
         self.fullscreen_button.clicked.connect(self.fullScreenState)
+        self.openfile_button.clicked.connect(self.openMedia)
 
+
+    def openMedia(self):
+        media = QFileDialog.getOpenFileName(self, "Video seç", "/home/metehan",
+                                            "Video file (*.mp4 *.mkv *.webm *.ogv *.ogg *.avi *.flv);;Video ()")
+        self.parent.player.addVideo(media[0])
 
 
     def fullScreenState(self):
