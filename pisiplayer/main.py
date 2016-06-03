@@ -1,8 +1,6 @@
 from PyQt5.QtWidgets import QApplication, qApp, QVBoxLayout, QWidget
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QMediaMetaData
-from PyQt5.QtGui import QIcon, QPixmap, QPainter, QColor, QFont
-from PyQt5.QtCore import QUrl, Qt, QEvent
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 from .videoplayer import Player
 from .bar import Bar
 import sys

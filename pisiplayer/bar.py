@@ -1,14 +1,14 @@
-from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSlider, QSpacerItem, QSizePolicy, QAbstractSlider
+from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
 import time
-from .baritems.slider import PlayerSlider
+from .baritems.slider import PlayerSlider, SoundSlider
 
 class Bar(QWidget):
 
     def __init__(self, parent=None):
         super().__init__()
-        self.setFixedHeight(55)
+        self.setFixedHeight(40)
 
         self.parent = parent
 
@@ -17,7 +17,6 @@ class Bar(QWidget):
         self.setLayout(self.vlayout)
 
         self.video_slider = PlayerSlider(self)
-        self.video_slider.triggerAction(QAbstractSlider.SliderMove)
         self.video_slider.setOrientation(Qt.Horizontal)
         self.vlayout.addWidget(self.video_slider)
 
@@ -29,19 +28,19 @@ class Bar(QWidget):
 
         self.play_and_pause_button = QPushButton(self)
         self.play_and_pause_button.setFlat(True)
-        self.play_and_pause_button.setFixedSize(32, 32)
+        self.play_and_pause_button.setFixedSize(24, 24)
         self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.svg"))
-        self.play_and_pause_button.setIconSize(QSize(32, 32))
+        self.play_and_pause_button.setIconSize(QSize(24, 24))
         self.hlayout.addWidget(self.play_and_pause_button)
 
         self.sound_button = QPushButton(self)
         self.sound_button.setFlat(True)
-        self.sound_button.setFixedSize(32, 32)
+        self.sound_button.setFixedSize(24, 24)
         self.sound_button.setIcon(QIcon(":/data/images/volume3.svg"))
-        self.sound_button.setIconSize(QSize(32, 32))
+        self.sound_button.setIconSize(QSize(24, 24))
 
-        self.sound_volume_slider = QSlider(self)
-        self.sound_volume_slider.setFixedWidth(100)
+        self.sound_volume_slider = SoundSlider(self)
+        self.sound_volume_slider.setFixedWidth(80)
         self.sound_volume_slider.setMinimum(0)
         self.sound_volume_slider.setMaximum(100)
         self.sound_volume_slider.setValue(100)
@@ -62,16 +61,16 @@ class Bar(QWidget):
         self.cc_button = QPushButton(self)
         self.cc_button.setFlat(True)
         self.cc_button.setIcon(QIcon(":data/images/altyazi.svg"))
-        self.cc_button.setIconSize(QSize(32, 32))
-        self.cc_button.setFixedSize(32, 32)
+        self.cc_button.setIconSize(QSize(24, 24))
+        self.cc_button.setFixedSize(24, 24)
 
         self.hlayout.addWidget(self.cc_button)
 
         self.fullscreen_button = QPushButton(self)
         self.fullscreen_button.setFlat(True)
         self.fullscreen_button.setIcon(QIcon(":data/images/fullscreen.svg"))
-        self.fullscreen_button.setIconSize(QSize(32, 32))
-        self.fullscreen_button.setFixedSize(32, 32)
+        self.fullscreen_button.setIconSize(QSize(24, 24))
+        self.fullscreen_button.setFixedSize(24, 24)
 
         self.hlayout.addWidget(self.fullscreen_button)
 
