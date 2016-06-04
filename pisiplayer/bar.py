@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
-import time
+import time, os
 from .baritems.slider import PlayerSlider, SoundSlider
 
 class Bar(QWidget):
@@ -89,9 +89,10 @@ class Bar(QWidget):
 
 
     def openMedia(self):
-        media = QFileDialog.getOpenFileName(self, "Video seç", "/home/metehan",
+        media = QFileDialog.getOpenFileName(None, "Video seç", "/home/metehan",
                                             "Video file (*.mp4 *.mkv *.webm *.ogv *.ogg *.avi *.flv);;Video ()")
-        self.parent.player.addVideo(media[0])
+        if os.path.isfile(media[0]):
+            self.parent.player.addVideo(media[0])
 
 
     def fullScreenState(self):
