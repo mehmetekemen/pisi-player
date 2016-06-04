@@ -17,8 +17,7 @@ class PisiPlayer(QGraphicsView):
         self.setScene(QGraphicsScene())
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-
+        self.setAcceptDrops(True)
 
 
         self.player = Player(self)
@@ -115,6 +114,18 @@ class PisiPlayer(QGraphicsView):
         self.scene().setSceneRect(0, 0, event.size().width(), event.size().height())
         self.player.setSize(QSizeF(event.size().width(), event.size().height()))
         self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
+
+    def dragEnterEvent(self, event):
+        if len(event.mimeData().urls()) < 2:
+            event.accept()
+
+    def dragMoveEvent(self, event):
+        event.accept()
+
+    def dropEvent(self, event):
+        print(event.mimeData().urls()[0])
+        self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
+        event.accept()
 
 
 def main():
