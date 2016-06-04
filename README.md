@@ -12,6 +12,7 @@ python3-qt5, pyqt5tools(derleme - pyrcc5, pylupdate5, lrelease5), python3-setupt
 
 ## Fare ve Klavye KısaYolları
 
+* Sürükle-bırak ile video oynatabilirsiniz.
 * Videoya Çift tıklama: Tam ekran veya tam ekrandan çıkış.
 * Esc: Tam ekrandan çıkış.
 * Ctrl+Q: Uygulamayı kapat.
