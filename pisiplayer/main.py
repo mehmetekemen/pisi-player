@@ -48,10 +48,12 @@ class PisiPlayer(QGraphicsView):
 
     def mouseAndBarHideOrShow(self):
         self.bar.hide()
+        self.setCursor(Qt.BlankCursor)
 
     def mouseMoveEvent(self, event):
         if event.pos():
             self.bar.show()
+            self.setCursor(Qt.ArrowCursor)
             self.cursorTimer.start(3000)
 
     def playOrPause(self):
