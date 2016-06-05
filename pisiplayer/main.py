@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QApplication, qApp, QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSizeF, QTimer
+from PyQt5.QtCore import Qt, QSizeF, QTimer, QPointF
 from .videoplayer import Player
 from .bar import Bar
+from .subtitileitem import SubtitleItemText
 import sys
 from pisiplayer import pisiplayer_rc
 
@@ -19,17 +20,19 @@ class PisiPlayer(QGraphicsView):
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setAcceptDrops(True)
 
-
+        self.subtitleitem = SubtitleItemText(self)
         self.player = Player(self)
         self.scene().addItem(self.player)
         self.player.playerPlayOrOpen(qApp.arguments())
+
+        self.scene().addItem(self.subtitleitem)
+
 
         self.bar = Bar(self)
         self.scene().addWidget(self.bar)
 
         self.player.player.durationChanged.connect(self.bar.videoSliderMax)
         self.player.player.positionChanged.connect(self.bar.videoSliderValue)
-
 
         self.player.player.mutedChanged.connect(self.bar.mutedChange)
         self.player.player.stateChanged.connect(self.bar.playingState)
@@ -40,6 +43,9 @@ class PisiPlayer(QGraphicsView):
         self.bar.sound_volume_slider.valueChanged.connect(self.player.setVolume)
 
         self.bar.video_slider.sliderMoved.connect(self.player.sliderChanged)
+
+
+        self.player.subtitlePos.connect(self.subtitleitem.positionValue)
 
         self.cursorTimer = QTimer(self)
         self.cursorTimer.timeout.connect(self.mouseAndBarHideOrShow)
@@ -90,7 +96,7 @@ class PisiPlayer(QGraphicsView):
         if event.modifiers() == Qt.ControlModifier and event.key() == Qt.Key_M:
             self.player.setMuted(not self.player.isMuted())
 
-        if event.key() == Qt.Key_Up:
+        if event.key() == Qt.Key_Right:
             self.player.player.setPosition(self.player.player.position() + 10000)
 
         if event.key() == Qt.Key_Left:
@@ -114,6 +120,7 @@ class PisiPlayer(QGraphicsView):
         self.scene().setSceneRect(0, 0, event.size().width(), event.size().height())
         self.player.setSize(QSizeF(event.size().width(), event.size().height()))
         self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
+        self.subtitleitem.setPos(QPointF((event.size().width()-self.subtitleitem.document().size().width())/2, event.size().height() - 150))
 
     def dragEnterEvent(self, event):
         if len(event.mimeData().urls()) < 2:
@@ -123,7 +130,6 @@ class PisiPlayer(QGraphicsView):
         event.accept()
 
     def dropEvent(self, event):
-        print(event.mimeData().urls()[0])
         self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
         event.accept()
 
