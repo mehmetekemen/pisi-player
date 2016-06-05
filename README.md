@@ -10,6 +10,10 @@ sudo python3 setup.py install
 python3-qt5, pyqt5tools(derleme - pyrcc5, pylupdate5, lrelease5), python3-setuptools(derleme) - (Farklı dağıtımlar için qtmultimedia paketi pyqt5 için kurulmalı.)
 
 
+## Altyazı Desteği
+
+Deneme olarak eklendi. Oynatılan video adında srt dosyası varsa program görüyor.
+
 ## Fare ve Klavye KısaYolları
 
 * Sürükle-bırak ile video oynatabilirsiniz.
