@@ -34,7 +34,7 @@ class SubtitleParse(QObject):
             lsn = int(sub[7]) * 1000
             lms = int(sub[8]) + lsaat + ldk + lsn
 
-            liste.append((ms, lms, sub[9]+"\n"+sub[10]))
+            liste.append((ms, lms, "<p>{}</p><p>{}</p>".format(sub[9], sub[10])))
 
         return liste
 
