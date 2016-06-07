@@ -1,6 +1,11 @@
 # pisi-player
 Pisi Linux için Video Oynatıcı
 
+## Uyarı!
+
+Uygulama Pisi Linux üzerinde sorunsuz(!) çalışmaktadır. Başka dağıtımlarda çalışmama ihtimali olduysa, en büyük sebebi gstreamer'dır.
+Çünkü pyqt-qt ses ve video oynatırken arkaplanda gstreamer kullanır.
+
 ## Kurulum
 
 sudo python3 setup.py install
@@ -10,9 +15,15 @@ sudo python3 setup.py install
 python3-qt5, pyqt5tools(derleme - pyrcc5, pylupdate5, lrelease5), python3-setuptools(derleme) - (Farklı dağıtımlar için qtmultimedia paketi pyqt5 için kurulmalı.)
 
 
-## Altyazı Desteği
+## Özellikler
 
-Deneme olarak eklendi. Oynatılan video adında srt dosyası varsa program görüyor.
+* Ses seviyesini değiştirdiğinizde, bir sonraki girişte o ses seviyesinde başlıyor.
+* İzlediğiniz video varken Pisi Player'ı kapattığınız da hangi videonun hangi sürede olduğunu kayıt ediyor ve bir sonraki açılışta kaldığınız yerden devam ediyor.
+
+Deneme olarak altyazı gösterme özelliği eklendi.
+
+* Oynatılan video adında srt dosyası varsa program görüyor.
+* Sürükle bırak özelliği ile farklı yollar ve isimlerdeki altyazı dosyalarını ekleyebilirsiniz.
 
 ## Fare ve Klavye KısaYolları
 
