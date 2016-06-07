@@ -9,6 +9,9 @@ class SubtitleItemText(QGraphicsTextItem):
         self.parent = parent
         self.timer = QTimer(self)
 
+    def addSubtitle(self, subtitle):
+        self.subtitle_list = SubtitleParse(subtitle).parse()
+
     def subtitleControl(self, content):
         srt = content.canonicalUrl().toLocalFile().split(".")
         srt.pop(-1)

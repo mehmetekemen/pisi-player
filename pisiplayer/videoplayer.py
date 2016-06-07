@@ -31,6 +31,9 @@ class Player(QGraphicsVideoItem):
         except ValueError:
             pass
 
+    def timerStart(self):
+        self.timer.start(200)
+
     def signalStart(self, content):
         srt = content.canonicalUrl().toLocalFile().split(".")
         srt.pop(-1)

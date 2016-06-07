@@ -123,14 +123,21 @@ class PisiPlayer(QGraphicsView):
         self.subtitleitem.setPos(QPointF((event.size().width()-self.subtitleitem.document().size().width())/2, event.size().height() - 150))
 
     def dragEnterEvent(self, event):
+        uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt"]
         if len(event.mimeData().urls()) < 2:
-            event.accept()
+            if event.mimeData().urls()[0].toLocalFile().split(".")[-1] in uzantilar:
+                event.accept()
+
 
     def dragMoveEvent(self, event):
         event.accept()
 
     def dropEvent(self, event):
-        self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
+        if event.mimeData().urls()[0].toLocalFile().split(".")[-1] == "srt":
+            self.subtitleitem.addSubtitle(event.mimeData().urls()[0].toLocalFile())
+            self.player.timerStart()
+        else:
+            self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
         event.accept()
 
     def closeEvent(self, event):
