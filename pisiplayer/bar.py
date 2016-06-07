@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QFileDialog
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, QDir
 import time, os
 from .baritems.slider import PlayerSlider, SoundSlider
+from .settings import settings
 
 class Bar(QWidget):
     def __init__(self, parent=None):
@@ -42,7 +43,7 @@ class Bar(QWidget):
         self.sound_volume_slider.setFixedWidth(80)
         self.sound_volume_slider.setMinimum(0)
         self.sound_volume_slider.setMaximum(100)
-        self.sound_volume_slider.setValue(100)
+        self.sound_volume_slider.setValue(self.parent.player.volume())
         self.sound_volume_slider.setOrientation(Qt.Horizontal)
 
         self.hlayout.addWidget(self.sound_button)
@@ -89,8 +90,10 @@ class Bar(QWidget):
 
 
     def openMedia(self):
-        media = QFileDialog.getOpenFileName(None, "Video seç", "/home/metehan",
-                                            "Video file (*.mp4 *.mkv *.webm *.ogv *.ogg *.avi *.flv);;Video ()")
+        media = QFileDialog.getOpenFileName(None, self.tr("Select Video File"), (settings().value("Player/path") or QDir.homePath()),
+                                            self.tr("Video file (*.mp4 *.mkv *.webm *.ogv *.ogg *.avi *.flv *.wmv *.mpg *.mov)"))
+        settings().setValue("Player/path", os.path.dirname(media[0]))
+        settings().sync()
         if os.path.isfile(media[0]):
             self.parent.player.addVideo(media[0])
 
@@ -117,7 +120,6 @@ class Bar(QWidget):
         self.video_time.current_time = value
         self.video_time.setText("%s/%s"%(self.timeToString(self.video_time.current_time, self.video_time.total_time)))
 
-
     def volumeSlider(self, volume):
         self.sound_volume_slider.setValue(volume)
         if not self.sound_volume_slider.value():
@@ -130,6 +132,9 @@ class Bar(QWidget):
             self.sound_button.setIcon(QIcon(":/data/images/volume2.svg"))
         elif self.sound_volume_slider.value() <= 100 and self.sound_volume_slider.value() >= 70:
             self.sound_button.setIcon(QIcon(":/data/images/volume3.svg"))
+
+        settings().setValue("Player/volume", volume)
+        settings().sync()
 
     def playingState(self, state):
         if state == 1:
