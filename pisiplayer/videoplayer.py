@@ -1,7 +1,8 @@
 from PyQt5.QtMultimediaWidgets import QGraphicsVideoItem
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl, QTimer, pyqtSignal, QFile
-
+from .settings import settings
+import os
 
 class Player(QGraphicsVideoItem):
 
@@ -11,6 +12,7 @@ class Player(QGraphicsVideoItem):
         self.parent = parent
 
         self.player = QMediaPlayer()
+        self.player.setVolume(int(settings().value("Player/volume")) or 100)
         self.player.setVideoOutput(self)
 
         self.timer = QTimer(self)
@@ -18,6 +20,16 @@ class Player(QGraphicsVideoItem):
 
         self.player.currentMediaChanged.connect(self.signalStart)
         self.player.currentMediaChanged.connect(self.parent.subtitleitem.subtitleControl)
+        self.player.currentMediaChanged.connect(self.videoConfigure)
+
+    def videoConfigure(self, media):
+        video_name = os.path.basename(media.canonicalUrl().toLocalFile())
+        videos = settings().value("Player/video_names") or []
+        videos_time = settings().value("Player/videos_time") or []
+        try:
+            self.player.setPosition(int(videos_time[videos.index(video_name)]))
+        except ValueError:
+            pass
 
     def signalStart(self, content):
         srt = content.canonicalUrl().toLocalFile().split(".")
@@ -26,6 +38,8 @@ class Player(QGraphicsVideoItem):
         srt = ".".join(srt)
         if QFile.exists(srt):
             self.timer.start(200)
+        else:
+            self.timer.stop()
 
     def timerPos(self):
         self.subtitlePos.emit(self.player.position())
