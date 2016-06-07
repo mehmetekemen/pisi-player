@@ -4,7 +4,8 @@ from PyQt5.QtCore import Qt, QSizeF, QTimer, QPointF
 from .videoplayer import Player
 from .bar import Bar
 from .subtitileitem import SubtitleItemText
-import sys
+from  .settings import settings
+import sys, os
 from pisiplayer import pisiplayer_rc
 
 
@@ -43,7 +44,6 @@ class PisiPlayer(QGraphicsView):
         self.bar.sound_volume_slider.valueChanged.connect(self.player.setVolume)
 
         self.bar.video_slider.sliderMoved.connect(self.player.sliderChanged)
-
 
         self.player.subtitlePos.connect(self.subtitleitem.positionValue)
 
@@ -133,10 +133,26 @@ class PisiPlayer(QGraphicsView):
         self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
         event.accept()
 
+    def closeEvent(self, event):
+        video_name = os.path.basename(self.player.player.media().canonicalUrl().toLocalFile())
+        videos = settings().value("Player/video_names") or []
+        videos_time = settings().value("Player/videos_time") or []
+        try:
+            videos_time[videos.index(video_name)] = self.player.player.position()
+        except ValueError:
+            videos.append(video_name)
+            videos_time.append(self.player.player.position())
+        settings().setValue("Player/video_names", videos)
+        settings().setValue("Player/videos_time", videos_time)
+        settings().sync()
+        event.accept()
 
 def main():
 
     app = QApplication(sys.argv)
+    app.setOrganizationName("Pisi Linux")
+    app.setApplicationName("Pisi Player")
+    app.setApplicationVersion("0.7")
     pisiplayer = PisiPlayer()
     pisiplayer.show()
 
