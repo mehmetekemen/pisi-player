@@ -21,6 +21,11 @@ class Player(QGraphicsVideoItem):
         self.player.currentMediaChanged.connect(self.signalStart)
         self.player.currentMediaChanged.connect(self.parent.subtitleitem.subtitleControl)
         self.player.currentMediaChanged.connect(self.videoConfigure)
+        """self.player.mediaStatusChanged.connect(self.metadata)
+
+    def metadata(self, data):
+        if data and self.player.isMetaDataAvailable():
+            print(self.player.metaData("VideoCodec"))"""
 
     def videoConfigure(self, media):
         video_name = os.path.basename(media.canonicalUrl().toLocalFile())

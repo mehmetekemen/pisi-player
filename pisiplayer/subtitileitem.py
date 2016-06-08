@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QGraphicsTextItem
+from PyQt5.QtGui import QFont, QColor
 from .subtitleparse import SubtitleParse
 from PyQt5.QtCore import QTimer, QFile
+import re
 
 class SubtitleItemText(QGraphicsTextItem):
 
@@ -8,6 +10,10 @@ class SubtitleItemText(QGraphicsTextItem):
         super().__init__()
         self.parent = parent
         self.timer = QTimer(self)
+        self.font = QFont("Noto Serif", 20)
+        self.setDefaultTextColor(QColor("white"))
+        self.setFont(self.font)
+
 
     def addSubtitle(self, subtitle):
         self.subtitle_list = SubtitleParse(subtitle).parse()
@@ -23,15 +29,45 @@ class SubtitleItemText(QGraphicsTextItem):
             self.subtitle_list = None
 
     def clearHtml(self):
-        self.setHtml("")
+        self.setPlainText("")
         self.timer.timeout.disconnect()
 
+
+    compile = re.compile(r"<(\w{1})><(\w{1})>(\w.+)<\/\w{1}><\/\w{1}>", re.S)
     def positionValue(self, pos):
         if self.subtitle_list:
             for ctime, ltime, subtitle in self.subtitle_list:
                 if abs(pos - ctime) <= 200:
                     self.timer.timeout.connect(self.clearHtml)
-                    self.setHtml("<h1 style='color: white;'>%s</h1>"%subtitle)
+                    sub = self.compile.search(subtitle)
+                    print(subtitle)
+                    if sub:
+                        self.font.setItalic(True)
+                        self.font.setBold(True)
+                        self.setFont(self.font)
+                        self.setPlainText(sub.groups()[2])
+                        print("re", sub.groups()[0], sub.groups()[1], sub.groups()[2])
+
+                    elif subtitle.startswith("<b>"):
+                        self.font.setBold(True)
+                        self.font.setItalic(False)
+                        self.setFont(self.font)
+                        self.setPlainText(subtitle[3:].split("<")[0])
+                        print("bo", subtitle[3:-4])
+
+                    elif subtitle.startswith("<i>"):
+                        self.font.setItalic(True)
+                        self.font.setBold(False)
+                        self.setFont(self.font)
+                        self.setPlainText(subtitle[3:-4])
+                        print("it", subtitle[3:-4])
+
+                    else:
+                        self.font.setBold(False)
+                        self.font.setItalic(False)
+                        self.setFont(self.font)
+                        self.setPlainText(subtitle)
+
                     self.setPos((self.parent.size().width() - self.document().size().width()) / 2, self.parent.size().height() - 150)
                     self.timer.start(ltime-ctime)
                     break
