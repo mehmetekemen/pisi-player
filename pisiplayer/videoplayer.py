@@ -12,7 +12,7 @@ class Player(QGraphicsVideoItem):
         self.parent = parent
 
         self.player = QMediaPlayer()
-        self.player.setVolume(int(settings().value("Player/volume")) or 100)
+        self.player.setVolume(int(settings().value("Player/volume") or 100))
         self.player.setVideoOutput(self)
 
         self.timer = QTimer(self)
