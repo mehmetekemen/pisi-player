@@ -29,7 +29,7 @@ class Bar(QWidget):
         self.play_and_pause_button = QPushButton(self)
         self.play_and_pause_button.setFlat(True)
         self.play_and_pause_button.setFixedSize(24, 24)
-        self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.svg"))
+        self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.png"))
         self.play_and_pause_button.setIconSize(QSize(24, 24))
         self.hlayout.addWidget(self.play_and_pause_button)
 
@@ -68,7 +68,7 @@ class Bar(QWidget):
 
         self.cc_button = QPushButton(self)
         self.cc_button.setFlat(True)
-        self.cc_button.setIcon(QIcon(":data/images/altyazi.svg"))
+        self.cc_button.setIcon(QIcon(":data/images/subtitle.png"))
         self.cc_button.setIconSize(QSize(24, 24))
         self.cc_button.setFixedSize(24, 24)
 
@@ -76,7 +76,7 @@ class Bar(QWidget):
 
         self.fullscreen_button = QPushButton(self)
         self.fullscreen_button.setFlat(True)
-        self.fullscreen_button.setIcon(QIcon(":data/images/fullscreen.svg"))
+        self.fullscreen_button.setIcon(QIcon(":data/images/fullscreen.png"))
         self.fullscreen_button.setIconSize(QSize(24, 24))
         self.fullscreen_button.setFixedSize(24, 24)
 
@@ -138,9 +138,9 @@ class Bar(QWidget):
 
     def playingState(self, state):
         if state == 1:
-            self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.svg"))
+            self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.png"))
         else:
-            self.play_and_pause_button.setIcon(QIcon(":/data/images/play.svg"))
+            self.play_and_pause_button.setIcon(QIcon(":/data/images/play.png"))
 
     def mutedChange(self, bool):
         if bool:
