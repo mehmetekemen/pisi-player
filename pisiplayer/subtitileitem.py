@@ -46,21 +46,18 @@ class SubtitleItemText(QGraphicsTextItem):
                         self.font.setBold(True)
                         self.setFont(self.font)
                         self.setPlainText(sub.groups()[2])
-                        print("re", sub.groups()[0], sub.groups()[1], sub.groups()[2])
 
                     elif subtitle.startswith("<b>"):
                         self.font.setBold(True)
                         self.font.setItalic(False)
                         self.setFont(self.font)
                         self.setPlainText(subtitle[3:].split("<")[0])
-                        print("bo", subtitle[3:-4])
 
                     elif subtitle.startswith("<i>"):
                         self.font.setItalic(True)
                         self.font.setBold(False)
                         self.setFont(self.font)
-                        self.setPlainText(subtitle[3:-4])
-                        print("it", subtitle[3:-4])
+                        self.setPlainText(subtitle[3:-4].split("<")[0])
 
                     else:
                         self.font.setBold(False)
