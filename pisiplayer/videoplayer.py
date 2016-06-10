@@ -6,6 +6,7 @@ import os
 
 class Player(QGraphicsVideoItem):
 
+    isSubtitle = pyqtSignal(bool)
     subtitlePos = pyqtSignal(int)
     def __init__(self, parent=None):
         super().__init__()
@@ -45,8 +46,10 @@ class Player(QGraphicsVideoItem):
         srt.append("srt")
         srt = ".".join(srt)
         if QFile.exists(srt):
+            self.isSubtitle.emit(True)
             self.timer.start(200)
         else:
+            self.isSubtitle.emit(False)
             self.timer.stop()
 
     def timerPos(self):

@@ -24,7 +24,7 @@ class PisiPlayer(QGraphicsView):
         self.subtitleitem = SubtitleItemText(self)
         self.player = Player(self)
         self.scene().addItem(self.player)
-        self.player.playerPlayOrOpen(qApp.arguments())
+
 
         self.scene().addItem(self.subtitleitem)
 
@@ -46,10 +46,13 @@ class PisiPlayer(QGraphicsView):
         self.bar.video_slider.sliderMoved.connect(self.player.sliderChanged)
 
         self.player.subtitlePos.connect(self.subtitleitem.positionValue)
+        self.player.isSubtitle.connect(self.bar.cc_button.setVisible)
 
         self.cursorTimer = QTimer(self)
         self.cursorTimer.timeout.connect(self.mouseAndBarHideOrShow)
         self.cursorTimer.start(3000)
+
+        self.player.playerPlayOrOpen(qApp.arguments())
 
     def mouseAndBarHideOrShow(self):
         self.bar.hide()

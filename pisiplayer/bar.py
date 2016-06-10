@@ -69,6 +69,7 @@ class Bar(QWidget):
         self.cc_button = QPushButton(self)
         self.cc_button.setFlat(True)
         self.cc_button.setIcon(QIcon(":data/images/subtitle.png"))
+        #self.cc_button.setVisible(False)
         self.cc_button.setIconSize(QSize(24, 24))
         self.cc_button.setFixedSize(24, 24)
 
@@ -87,7 +88,10 @@ class Bar(QWidget):
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
         self.fullscreen_button.clicked.connect(self.fullScreenState)
         self.openfile_button.clicked.connect(self.openMedia)
+        self.cc_button.clicked.connect(self.yaz)
 
+    def yaz(self):
+        print("")
 
     def openMedia(self):
         media = QFileDialog.getOpenFileName(None, self.tr("Select Video File"), (settings().value("Player/path") or QDir.homePath()),
