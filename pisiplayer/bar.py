@@ -58,18 +58,10 @@ class Bar(QWidget):
 
         self.hlayout.addItem(QSpacerItem(100, 10, QSizePolicy.Preferred, QSizePolicy.Minimum))
 
-        self.openfile_button = QPushButton(self)
-        self.openfile_button.setFlat(True)
-        self.openfile_button.setIcon(QIcon.fromTheme("document-open"))
-        self.openfile_button.setIconSize(QSize(24, 24))
-        self.openfile_button.setFixedSize(24, 24)
-
-        self.hlayout.addWidget(self.openfile_button)
-
         self.cc_button = QPushButton(self)
         self.cc_button.setFlat(True)
         self.cc_button.setIcon(QIcon(":data/images/subtitle.png"))
-        #self.cc_button.setVisible(False)
+        self.cc_button.setVisible(False)
         self.cc_button.setIconSize(QSize(24, 24))
         self.cc_button.setFixedSize(24, 24)
 
@@ -87,27 +79,16 @@ class Bar(QWidget):
 
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
         self.fullscreen_button.clicked.connect(self.fullScreenState)
-        self.openfile_button.clicked.connect(self.openMedia)
         self.cc_button.clicked.connect(self.yaz)
 
     def yaz(self):
         print("")
-
-    def openMedia(self):
-        media = QFileDialog.getOpenFileName(None, self.tr("Select Video File"), (settings().value("Player/path") or QDir.homePath()),
-                                            self.tr("Video file (*.mp4 *.mkv *.webm *.ogv *.ogg *.avi *.flv *.wmv *.mpg *.mov)"))
-        settings().setValue("Player/path", os.path.dirname(media[0]))
-        settings().sync()
-        if os.path.isfile(media[0]):
-            self.parent.player.addVideo(media[0])
-
 
     def fullScreenState(self):
         if self.parent.isFullScreen():
             self.parent.showNormal()
         else:
             self.parent.showFullScreen()
-
 
     def videoSliderMax(self, mvalue):
         self.video_slider.setMaximum(mvalue)
