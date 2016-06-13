@@ -5,12 +5,15 @@ import time, os
 from .baritems.slider import PlayerSlider, SoundSlider
 from .settings import settings
 
+
 class Bar(QWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.setFixedHeight(40)
         self.setStyleSheet("QWidget {background-color: transparent;} QPushButton:flat { border: none; }")
         self.parent = parent
+        self.setFocusPolicy(Qt.NoFocus)
+
 
         self.vlayout = QVBoxLayout()
         self.vlayout.setContentsMargins(0, 0, 0, 0)
@@ -19,6 +22,7 @@ class Bar(QWidget):
         self.video_slider = PlayerSlider(self)
         self.video_slider.setOrientation(Qt.Horizontal)
         self.vlayout.addWidget(self.video_slider)
+        self.video_slider.setFocusPolicy(Qt.NoFocus)
 
         self.hlayout = QHBoxLayout()
         self.hlayout.setContentsMargins(0, 0, 0, 0)
@@ -27,6 +31,7 @@ class Bar(QWidget):
         self.hlayout.addItem(QSpacerItem(10, 10, QSizePolicy.Preferred, QSizePolicy.Minimum))
 
         self.play_and_pause_button = QPushButton(self)
+        self.play_and_pause_button.setFocusPolicy(Qt.NoFocus)
         self.play_and_pause_button.setFlat(True)
         self.play_and_pause_button.setFixedSize(24, 24)
         self.play_and_pause_button.setIcon(QIcon(":/data/images/pause.png"))
@@ -34,12 +39,14 @@ class Bar(QWidget):
         self.hlayout.addWidget(self.play_and_pause_button)
 
         self.sound_button = QPushButton(self)
+        self.sound_button.setFocusPolicy(Qt.NoFocus)
         self.sound_button.setFlat(True)
         self.sound_button.setFixedSize(24, 24)
         self.sound_button.setIcon(QIcon(":/data/images/volume3.svg"))
         self.sound_button.setIconSize(QSize(24, 24))
 
         self.sound_volume_slider = SoundSlider(self)
+        self.sound_volume_slider.setFocusPolicy(Qt.NoFocus)
         self.sound_volume_slider.setFixedWidth(80)
         self.sound_volume_slider.setMinimum(0)
         self.sound_volume_slider.setMaximum(100)
@@ -59,6 +66,7 @@ class Bar(QWidget):
         self.hlayout.addItem(QSpacerItem(100, 10, QSizePolicy.Preferred, QSizePolicy.Minimum))
 
         self.cc_button = QPushButton(self)
+        self.cc_button.setFocusPolicy(Qt.NoFocus)
         self.cc_button.setFlat(True)
         self.cc_button.setIcon(QIcon(":data/images/subtitle.png"))
         self.cc_button.setVisible(False)
@@ -68,6 +76,7 @@ class Bar(QWidget):
         self.hlayout.addWidget(self.cc_button)
 
         self.fullscreen_button = QPushButton(self)
+        self.fullscreen_button.setFocusPolicy(Qt.NoFocus)
         self.fullscreen_button.setFlat(True)
         self.fullscreen_button.setIcon(QIcon(":data/images/fullscreen.png"))
         self.fullscreen_button.setIconSize(QSize(24, 24))
