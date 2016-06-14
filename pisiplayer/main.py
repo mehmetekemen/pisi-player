@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, qApp, QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSizeF, QTimer, QPointF
+from PyQt5.QtCore import Qt, QSizeF, QTimer, QPointF, QSize, QPoint
 from .videoplayer import Player
 from .bar import Bar
 from .subtitileitem import SubtitleItemText
@@ -12,7 +12,8 @@ from pisiplayer import pisiplayer_rc
 class PisiPlayer(QGraphicsView):
     def __init__(self, parent=None):
         super().__init__()
-        self.resize(640, 480)
+        self.resize((settings().value("Player/resize") or QSize(640, 480)))
+        self.move((settings().value("Player/position") or QPoint(250, 150)))
         self.setWindowTitle("Pisi Player")
         self.setWindowIcon(QIcon(":/data/images/pisiplayer.svg"))
         self.setStyleSheet("background-color: black; border: none;")
@@ -154,6 +155,8 @@ class PisiPlayer(QGraphicsView):
             videos_time.append(self.player.player.position())
         settings().setValue("Player/video_names", videos)
         settings().setValue("Player/videos_time", videos_time)
+        settings().setValue("Player/position", self.pos())
+        settings().setValue("Player/resize", self.size())
         settings().sync()
         event.accept()
 
