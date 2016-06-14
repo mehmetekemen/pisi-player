@@ -20,7 +20,6 @@ for l in listdir('languages'):
 system('pyrcc5 pisiplayer.qrc -o pisiplayer/pisiplayer_rc.py')
 
 datas = [('/usr/share/applications', ['data/pisiplayer.desktop']),
-         ('/usr/share/kservices5/ServiceMenus', ['data/pisiplayer-service.desktop']),
          ('/usr/share/icons/hicolor/256x256/apps', ['data/images/pisiplayer.svg']),
          #('/usr/share/kaptan/languages', langs)
          ]
