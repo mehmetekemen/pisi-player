@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont, QColor
 from .subtitleparse import SubtitleParse
 from PyQt5.QtCore import QTimer, QFile
 import re
+from .settings import settings
 
 class SubtitleItemText(QGraphicsTextItem):
 
@@ -10,14 +11,15 @@ class SubtitleItemText(QGraphicsTextItem):
         super().__init__()
         self.parent = parent
         self.timer = QTimer(self)
-        self.font = QFont("Noto Serif", 20)
-        self.setDefaultTextColor(QColor("white"))
+        self.font = QFont(settings().value("Player/subtitle_font") or "Noto Serif", 20)
+        self.setDefaultTextColor(settings().value("Player/subtitle_color") or QColor("white"))
         self.setFont(self.font)
 
 
     def paint(self, painter, op, w):
-        painter.setBrush(QColor(0, 0, 0, 130))
-        painter.drawRect(self.boundingRect())
+        if self.toPlainText() != "":
+            painter.setBrush(settings().value("Player/subtitle_background") or QColor(0, 0, 0, 130))
+            painter.drawRect(self.boundingRect())
         super().paint(painter, op, w)
 
     def addSubtitle(self, subtitle):
