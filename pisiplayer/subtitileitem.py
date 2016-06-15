@@ -16,11 +16,13 @@ class SubtitleItemText(QGraphicsTextItem):
         self.setFont(self.font)
 
 
-    def paint(self, painter, op, w):
+    def paint(self, painter, op, wi):
         if self.toPlainText() != "":
             painter.setBrush(settings().value("Player/subtitle_background") or QColor(0, 0, 0, 130))
-            painter.drawRect(self.boundingRect())
-        super().paint(painter, op, w)
+            painter.setPen(settings().value("Player/subtitle_background") or QColor(0, 0, 0, 130))
+            x, y, w, h = self.boundingRect().x(), self.boundingRect().y()+5, self.boundingRect().width(), self.boundingRect().height()-5
+            painter.drawRect(x, y, w, h)
+        super().paint(painter, op, wi)
 
     def addSubtitle(self, subtitle):
         self.subtitle_list = SubtitleParse(subtitle).parse()
