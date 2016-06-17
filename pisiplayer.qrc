@@ -10,5 +10,7 @@
         <file>data/images/fullscreen.png</file>
         <file>data/images/subtitle.png</file>
         <file>data/images/pisiplayer.svg</file>
+        <file>data/images/settings.svg</file>
+        <file>data/images/youtube.png</file>
     </qresource>
 </RCC>
