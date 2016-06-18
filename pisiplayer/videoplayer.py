@@ -2,6 +2,7 @@ from PyQt5.QtMultimediaWidgets import QGraphicsVideoItem
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl, QTimer, pyqtSignal, QFile
 from .settings import settings
+from .downloadmanager import DownloadManager
 import os
 
 class Player(QGraphicsVideoItem):
@@ -63,6 +64,13 @@ class Player(QGraphicsVideoItem):
 
     def addVideo(self, video):
         content = QMediaContent(QUrl.fromLocalFile(video))
+        self.player.setMedia(content)
+        self.play()
+
+    def addYoutubeVideo(self, video):
+        dm = DownloadManager(self)
+
+        content = QMediaContent(dm.addUrl(video))
         self.player.setMedia(content)
         self.play()
 
