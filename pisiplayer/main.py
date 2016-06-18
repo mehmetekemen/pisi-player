@@ -4,7 +4,9 @@ from PyQt5.QtCore import Qt, QSizeF, QTimer, QPointF, QSize, QPoint
 from .videoplayer import Player
 from .bar import Bar
 from .subtitileitem import SubtitleItemText
-from  .settings import settings
+from .settings import settings
+from .settingsdialog import SettingsDialog
+from .tubedialog import TubeDialog
 import sys, os
 from pisiplayer import pisiplayer_rc
 
@@ -54,6 +56,19 @@ class PisiPlayer(QGraphicsView):
         self.cursorTimer.start(3000)
 
         self.player.playerPlayOrOpen(qApp.arguments())
+
+        self.settings_dialog = SettingsDialog(self)
+        self.scene().addWidget(self.settings_dialog)
+
+        self.tube_dialog = TubeDialog(self)
+        self.scene().addWidget(self.tube_dialog)
+
+    def settingsDialog(self):
+        self.settings_dialog.setVisible(not self.settings_dialog.isVisible())
+
+    def youtubeDialog(self):
+        self.tube_dialog.tube_line.clear()
+        self.tube_dialog.setVisible(not self.tube_dialog.isVisible())
 
     def mouseAndBarHideOrShow(self):
         self.bar.hide()
@@ -125,12 +140,12 @@ class PisiPlayer(QGraphicsView):
         self.player.setSize(QSizeF(event.size().width(), event.size().height()))
         self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
         self.subtitleitem.setPos(QPointF((event.size().width()-self.subtitleitem.document().size().width())/2, event.size().height() - 150))
-        self.bar.tube_dialog.setGeometry((event.size().width()-self.bar.tube_dialog.width())/2,
-                                         (event.size().height()-self.bar.tube_dialog.height())/2,
-                                         self.bar.tube_dialog.width(), self.bar.tube_dialog.height())
-        self.bar.settings_dialog.setGeometry(event.size().width() - self.bar.settings_dialog.width() - 30,
-                                         event.size().height() - self.bar.settings_dialog.height() - (20 + self.bar.height()),
-                                         self.bar.settings_dialog.width(), self.bar.settings_dialog.height())
+        self.tube_dialog.setGeometry((event.size().width()-self.tube_dialog.width())/2,
+                                         (event.size().height()-self.tube_dialog.height())/2,
+                                         self.tube_dialog.width(), self.tube_dialog.height())
+        self.settings_dialog.setGeometry(event.size().width() - self.settings_dialog.width() - 30,
+                                         event.size().height() - self.settings_dialog.height() - (20 + self.bar.height()),
+                                         self.settings_dialog.width(), self.settings_dialog.height())
 
     def dragEnterEvent(self, event):
         uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt"]

@@ -4,8 +4,6 @@ from PyQt5.QtCore import Qt, QSize
 import time
 from .baritems.slider import PlayerSlider, SoundSlider
 from .settings import settings
-from .tubedialog import TubeDialog
-from .settingsdialog import SettingsDialog
 
 
 class Bar(QWidget):
@@ -108,25 +106,10 @@ class Bar(QWidget):
 
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
         self.fullscreen_button.clicked.connect(self.fullScreenState)
-        self.cc_button.clicked.connect(self.yaz)
-        self.youtube_button.clicked.connect(self.youtubeDialog)
-        self.settings_button.clicked.connect(self.settingsDialog)
 
-        self.settings_dialog = SettingsDialog(self.parent)
-        self.parent.scene().addWidget(self.settings_dialog)
+        self.youtube_button.clicked.connect(self.parent.youtubeDialog)
+        self.settings_button.clicked.connect(self.parent.settingsDialog)
 
-        self.tube_dialog = TubeDialog(self.parent)
-        self.parent.scene().addWidget(self.tube_dialog)
-
-    def settingsDialog(self):
-        self.settings_dialog.setVisible(not self.settings_dialog.isVisible())
-
-    def youtubeDialog(self):
-        self.tube_dialog.tube_line.clear()
-        self.tube_dialog.setVisible(not self.tube_dialog.isVisible())
-
-    def yaz(self):
-        print("")
 
     def fullScreenState(self):
         if self.parent.isFullScreen():
