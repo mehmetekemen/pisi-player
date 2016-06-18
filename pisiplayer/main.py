@@ -125,6 +125,12 @@ class PisiPlayer(QGraphicsView):
         self.player.setSize(QSizeF(event.size().width(), event.size().height()))
         self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
         self.subtitleitem.setPos(QPointF((event.size().width()-self.subtitleitem.document().size().width())/2, event.size().height() - 150))
+        self.bar.tube_dialog.setGeometry((event.size().width()-self.bar.tube_dialog.width())/2,
+                                         (event.size().height()-self.bar.tube_dialog.height())/2,
+                                         self.bar.tube_dialog.width(), self.bar.tube_dialog.height())
+        self.bar.settings_dialog.setGeometry(event.size().width() - self.bar.settings_dialog.width() - 30,
+                                         event.size().height() - self.bar.settings_dialog.height() - (20 + self.bar.height()),
+                                         self.bar.settings_dialog.width(), self.bar.settings_dialog.height())
 
     def dragEnterEvent(self, event):
         uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt"]
