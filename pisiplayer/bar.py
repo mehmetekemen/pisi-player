@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QFileDialog
+from PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSize, QDir
-import time, os
+from PyQt5.QtCore import Qt, QSize
+import time
 from .baritems.slider import PlayerSlider, SoundSlider
 from .settings import settings
+from .tubedialog import TubeDialog
+from .settingsdialog import SettingsDialog
 
 
 class Bar(QWidget):
@@ -75,6 +77,24 @@ class Bar(QWidget):
 
         self.hlayout.addWidget(self.cc_button)
 
+        self.youtube_button = QPushButton(self)
+        self.youtube_button.setFocusPolicy(Qt.NoFocus)
+        self.youtube_button.setFlat(True)
+        self.youtube_button.setIcon(QIcon(":data/images/youtube.png"))
+        self.youtube_button.setIconSize(QSize(24, 24))
+        self.youtube_button.setFixedSize(24, 24)
+
+        self.hlayout.addWidget(self.youtube_button)
+
+        self.settings_button = QPushButton(self)
+        self.settings_button.setFocusPolicy(Qt.NoFocus)
+        self.settings_button.setFlat(True)
+        self.settings_button.setIcon(QIcon(":data/images/settings.svg"))
+        self.settings_button.setIconSize(QSize(24, 24))
+        self.settings_button.setFixedSize(24, 24)
+
+        self.hlayout.addWidget(self.settings_button)
+
         self.fullscreen_button = QPushButton(self)
         self.fullscreen_button.setFocusPolicy(Qt.NoFocus)
         self.fullscreen_button.setFlat(True)
@@ -89,6 +109,16 @@ class Bar(QWidget):
         self.sound_volume_slider.valueChanged.connect(self.volumeSlider)
         self.fullscreen_button.clicked.connect(self.fullScreenState)
         self.cc_button.clicked.connect(self.yaz)
+        self.youtube_button.clicked.connect(self.youtubeDialog)
+        self.settings_button.clicked.connect(self.settingsDialog)
+
+    def settingsDialog(self):
+        di = SettingsDialog(self.parent)
+        self.parent.scene().addWidget(di)
+
+    def youtubeDialog(self):
+        di = TubeDialog(self.parent)
+        self.parent.scene().addWidget(di)
 
     def yaz(self):
         print("")
