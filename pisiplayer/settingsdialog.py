@@ -3,8 +3,10 @@ from PyQt5.QtWidgets import QDialog, QListWidget, QListWidgetItem
 class SettingsDialog(QListWidget):
     def __init__(self, parent=None):
         super().__init__()
-
-        self.setGeometry(300,100,100, 250)
+        self.setVisible(False)
+        self.resize(130, 200)
+        self.setStyleSheet("QListWidget {background-color: rgba(22, 22, 22, 150); border-color:  rgba(22, 22, 22, 150);"\
+                           "border-width: 1px; border-style outset; border-radius: 10px; color:white; font-weight:bold;}")
 
         a = QListWidgetItem(self)
         a.setText("Altyazılar")

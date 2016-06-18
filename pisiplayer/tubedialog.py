@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QDialog, QPushButton, QLineEdit, QHBoxLayout, QLabel, QVBoxLayout
-from .youtube import *
+from .youtube import Youtube
 
 class TubeDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__()
         self.setGeometry(100, 25, 500, 100)
-        self.setStyleSheet("background-color: rgba(0, 0, 0, 130);")
+        self.setStyleSheet("QDialog {background-color: rgba(22, 22, 22, 150); border-color:  rgba(22, 22, 22, 150); border-width: 1px; border-style outset; border-radius: 10px;}")
+        self.setVisible(False)
 
         vlayout = QVBoxLayout()
         self.setLayout(vlayout)
@@ -15,17 +16,18 @@ class TubeDialog(QDialog):
 
 
         self.tube_line = QLineEdit(self)
-        self.tube_line.setStyleSheet("background-color: rgba(0, 0, 0, 0);\ncolor: rgb(255, 255, 255);")
+        self.tube_line.setStyleSheet("QLineEdit {background-color: rgba(0, 0, 0, 0);\ncolor: rgb(255, 255, 255);}")
         self.tube_line.setPlaceholderText("https://www.youtube.com/watch?v=mY--4-vzY6E")
         hlayout.addWidget(self.tube_line)
 
         self.tube_button = QPushButton(self)
-        self.tube_button.setStyleSheet("background-color: rgba(0, 0, 0, 50);\ncolor: rgb(255, 255, 255);")
-        self.tube_button.setText("Video Çek")
+        self.tube_button.setStyleSheet("QPushButton {background-color: rgba(0, 0, 0, 50);\ncolor: rgb(255, 255, 255);}")
+        self.tube_button.setText("Video Oynat")
         hlayout.addWidget(self.tube_button)
 
         self.tube_warning = QLabel(self)
-        self.tube_warning.setStyleSheet("color: rgb(255, 255, 255); font-weight: bold; background-color: rgba(0, 0, 0, 0);")
+        self.tube_warning.setVisible(False)
+        self.tube_warning.setStyleSheet("QLabel {color: rgb(255, 255, 255); font-weight: bold; background-color: rgba(0, 0, 0, 0);}")
         self.tube_warning.setText("Verilen bağlantı geçersiz!")
         vlayout.addWidget(self.tube_warning)
 
@@ -33,5 +35,7 @@ class TubeDialog(QDialog):
         self.tube_button.clicked.connect(self.videoParse)
 
     def videoParse(self):
+        youtube = Youtube(self.tube_line.text())
+        youtube.video_title(), youtube.video_list()
         self.close()
 
