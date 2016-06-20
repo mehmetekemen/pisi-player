@@ -5,7 +5,7 @@ class TubeDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__()
         self.parent = parent
-        self.setGeometry(100, 25, 500, 100)
+        self.resize(400, 75)
         self.setStyleSheet("QDialog {background-color: rgba(22, 22, 22, 150); border-color:  rgba(22, 22, 22, 150); border-width: 1px; border-style outset; border-radius: 10px;}")
         self.setVisible(False)
 
@@ -37,12 +37,11 @@ class TubeDialog(QDialog):
 
     def videoParse(self):
         self.tube_warning.setVisible(False)
-        self.tube_warning.clear()
 
         try:
             youtube = Youtube(self.tube_line.text())
             #youtube.video_title()
-            self.parent.player.addYoutubeVideo(youtube.video_list()[0]["url"])
+            self.parent.player.addYoutubeVideo(youtube.get_video())
             self.close()
 
             # Başlık ------------ En kaliteli video url

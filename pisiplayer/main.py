@@ -68,6 +68,7 @@ class PisiPlayer(QGraphicsView):
 
     def youtubeDialog(self):
         self.tube_dialog.tube_line.clear()
+        self.tube_dialog.tube_warning.setVisible(False)
         self.tube_dialog.setVisible(not self.tube_dialog.isVisible())
 
     def mouseAndBarHideOrShow(self):
