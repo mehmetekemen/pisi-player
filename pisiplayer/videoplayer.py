@@ -48,7 +48,7 @@ class Player(QGraphicsVideoItem):
         srt = ".".join(srt)
         if QFile.exists(srt):
             self.isSubtitle.emit(True)
-            self.timer.start(200)
+            self.timer.start(100)
         else:
             self.isSubtitle.emit(False)
             self.timer.stop()
