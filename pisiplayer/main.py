@@ -162,6 +162,7 @@ class PisiPlayer(QGraphicsView):
         if event.mimeData().urls()[0].toLocalFile().split(".")[-1] == "srt":
             self.subtitleitem.addSubtitle(event.mimeData().urls()[0].toLocalFile())
             self.player.timerStart()
+            self.bar.cc_button.setVisible(True)
         else:
             self.player.addVideo(event.mimeData().urls()[0].toLocalFile())
         event.accept()
