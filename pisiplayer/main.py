@@ -175,8 +175,10 @@ class PisiPlayer(QGraphicsView):
         except ValueError:
             videos.append(video_name)
             videos_time.append(self.player.player.position())
-        settings().setValue("Player/video_names", videos)
-        settings().setValue("Player/videos_time", videos_time)
+
+        if video_name != "":
+            settings().setValue("Player/video_names", videos)
+            settings().setValue("Player/videos_time", videos_time)
         settings().setValue("Player/position", self.pos())
         settings().setValue("Player/resize", self.size())
         settings().sync()

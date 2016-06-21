@@ -1,4 +1,9 @@
 
 # Version 0.8
 
-* Yapılanlar...
+* Youtube bağlantısı izlemek için gerekli dialog oluşturuldu.
+* Youtube modülü hazırlandı.
+* Youtube videosu izlenilebiliyor.
+* Varsayılan video boyutu 720p. Eğer video 720p desteği yoksa 480p oynatıyor.
+* Varsayılan video formatı webm.
+* Youtube videolarının adı ve süresi kaydedilmiyor.
