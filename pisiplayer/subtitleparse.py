@@ -12,6 +12,7 @@ class SubtitleParse(QObject):
             return
 
         text = QTextStream(subtitlefile)
+        text.setCodec(encoding)
 
         subtitletext = text.readAll()
 
