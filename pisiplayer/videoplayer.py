@@ -77,12 +77,6 @@ class Player(QGraphicsVideoItem):
     def sliderChanged(self, pos):
         self.player.setPosition(pos)
 
-    def mouseDoubleClickEvent(self, event):
-        if not self.parent.isFullScreen():
-            self.parent.showFullScreen()
-        else:
-            self.parent.showNormal()
-
     def play(self):
         self.player.play()
 

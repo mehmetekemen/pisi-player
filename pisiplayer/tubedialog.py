@@ -41,7 +41,7 @@ class TubeDialog(QDialog):
         try:
             youtube = Youtube(self.tube_line.text())
             #youtube.video_title()
-            self.parent.player.addYoutubeVideo(youtube.get_video("medium"))
+            self.parent.player.addYoutubeVideo(youtube.get_video())
             self.close()
 
             # Başlık ------------ En kaliteli video url

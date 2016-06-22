@@ -4,7 +4,7 @@ class SettingsDialog(QListWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.setVisible(False)
-        self.resize(130, 200)
+        self.resize(90, 100)
         self.setStyleSheet("QListWidget {background-color: rgba(22, 22, 22, 150); border-color:  rgba(22, 22, 22, 150);"\
                            "border-width: 1px; border-style outset; border-radius: 10px; color:white; font-weight:bold;}")
 

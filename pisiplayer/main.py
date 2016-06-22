@@ -100,6 +100,7 @@ class PisiPlayer(QGraphicsView):
             self.showFullScreen()
         else:
             self.showNormal()
+        event.accept()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape and self.isFullScreen():
@@ -161,10 +162,14 @@ class PisiPlayer(QGraphicsView):
                                          self.cc_dialog.width(), self.cc_dialog.height())
 
     def dragEnterEvent(self, event):
-        uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt"]
+        uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt",
+                     "MP4", "MKV", "WEBM", "OGV", "OGG", "AVI", "FLV", "WMV", "MPG", "MOV", "SRT"]
         if len(event.mimeData().urls()) < 2:
-            if event.mimeData().urls()[0].toLocalFile().split(".")[-1] in uzantilar:
-                event.accept()
+            try:
+                if event.mimeData().urls()[0].toLocalFile().split(".")[-1] in uzantilar:
+                    event.accept()
+            except IndexError:
+                print("Hata!")
 
 
     def dragMoveEvent(self, event):
