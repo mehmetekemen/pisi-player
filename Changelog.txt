@@ -7,3 +7,5 @@
 * Varsayılan video boyutu 720p. Eğer video 720p desteği yoksa 480p oynatıyor.
 * Varsayılan video formatı webm.
 * Youtube videolarının adı ve süresi kaydedilmiyor.
+* Altyazı gösterimi daha kararlı hale getirildi.
+* Altyazı kodlaması ayarlamak için dialog eklendi.

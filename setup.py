@@ -28,7 +28,7 @@ setup(
     name = "pisiplayer",
     scripts = ["script/pisiplayer"],
     packages = find_packages(),
-    version = "0.7",
+    version = "0.8",
     license = "GPL v3",
     description = "Video Player for Pisi Linux",
     author = "Metehan Özbek",
