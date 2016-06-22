@@ -19,6 +19,8 @@ python3-qt5, pyqt5tools(derleme - pyrcc5, pylupdate5, lrelease5), python3-setupt
 * Ses seviyesini değiştirdiğinizde, bir sonraki girişte o ses seviyesinde başlıyor.
 * İzlediğiniz video varken Pisi Player'ı kapattığınız da hangi videonun hangi sürede olduğunu kayıt ediyor ve bir sonraki açılışta kaldığınız yerden devam ediyor.
 * Pisi Player kapandığında, o an ekrandaki konumu ve boyutu kayıt ediliyor ve tekrar açtığınızda boyut ve konumu hatırlıyor.
+* Sürükle bırak ile video ve altyazı eklenebiliyor. CC butonuna basarak metin kodlaması ayarlayanabiliyor.
+* Youtube butonuna tıkladığınızda açılan dialoga youtube linki yapıştırıp, youtube videosu oynatabiliyor.
 * Altyazı rengi, arkaplan rengi ve yazıtipi ayarlayanabiliyor.
 
 Altyazı gösterme özelliği ile ilgili bilgiler kararlı değildir!
