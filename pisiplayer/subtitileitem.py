@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QGraphicsTextItem
 from PyQt5.QtGui import QFont, QColor
 from .subtitleparse import SubtitleParse
-from PyQt5.QtCore import QTimer, QFile
+from PyQt5.QtCore import QFile
 import re
 from .settings import settings
 
@@ -25,7 +25,11 @@ class SubtitleItemText(QGraphicsTextItem):
         super().paint(painter, op, wi)
 
     def addSubtitle(self, subtitle):
-        self.subtitle_list = SubtitleParse(subtitle).parse()
+        self.subtitle_file = subtitle
+        self.subtitle_list = SubtitleParse(subtitle, settings().value("Subtitle/codec") or "ISO 8859-9").parse()
+
+    def reParse(self, codec):
+        self.subtitle_list = SubtitleParse(self.subtitle_file, codec).parse()
 
     def subtitleControl(self, content):
         srt = content.canonicalUrl().toLocalFile().split(".")
@@ -33,7 +37,8 @@ class SubtitleItemText(QGraphicsTextItem):
         srt.append("srt")
         srt = ".".join(srt)
         if QFile.exists(srt):
-            self.subtitle_list = SubtitleParse(srt).parse()
+            self.subtitle_file = srt
+            self.subtitle_list = SubtitleParse(srt, settings().value("Subtitle/codec") or "ISO 8859-9").parse()
         else:
             self.subtitle_list = None
 

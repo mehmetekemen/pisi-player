@@ -109,6 +109,7 @@ class Bar(QWidget):
 
         self.youtube_button.clicked.connect(self.parent.youtubeDialog)
         self.settings_button.clicked.connect(self.parent.settingsDialog)
+        self.cc_button.clicked.connect(self.parent.ccDialog)
 
 
     def fullScreenState(self):

@@ -7,6 +7,7 @@ from .subtitileitem import SubtitleItemText
 from .settings import settings
 from .settingsdialog import SettingsDialog
 from .tubedialog import TubeDialog
+from .ccdialog import CCDialog
 import sys, os
 from pisiplayer import pisiplayer_rc
 
@@ -26,11 +27,10 @@ class PisiPlayer(QGraphicsView):
 
         self.subtitleitem = SubtitleItemText(self)
         self.player = Player(self)
+
+
         self.scene().addItem(self.player)
-
-
         self.scene().addItem(self.subtitleitem)
-
 
         self.bar = Bar(self)
         self.scene().addWidget(self.bar)
@@ -63,8 +63,16 @@ class PisiPlayer(QGraphicsView):
         self.tube_dialog = TubeDialog(self)
         self.scene().addWidget(self.tube_dialog)
 
+        self.cc_dialog = CCDialog(self)
+        self.scene().addWidget(self.cc_dialog)
+
+        self.cc_dialog.subtitleCodecChanged.connect(self.subtitleitem.reParse)
+
     def settingsDialog(self):
         self.settings_dialog.setVisible(not self.settings_dialog.isVisible())
+
+    def ccDialog(self):
+        self.cc_dialog.setVisible(not self.cc_dialog.isVisible())
 
     def youtubeDialog(self):
         self.tube_dialog.tube_line.clear()
@@ -147,6 +155,10 @@ class PisiPlayer(QGraphicsView):
         self.settings_dialog.setGeometry(event.size().width() - self.settings_dialog.width() - 30,
                                          event.size().height() - self.settings_dialog.height() - (20 + self.bar.height()),
                                          self.settings_dialog.width(), self.settings_dialog.height())
+        self.cc_dialog.setGeometry(event.size().width() - self.cc_dialog.width() - 30,
+                                         event.size().height() - self.cc_dialog.height() - (
+                                         20 + self.bar.height()),
+                                         self.cc_dialog.width(), self.cc_dialog.height())
 
     def dragEnterEvent(self, event):
         uzantilar = ["mp4", "mkv", "webm", "ogv", "ogg", "avi", "flv", "wmv", "mpg", "mov", "srt"]
@@ -190,7 +202,7 @@ def main():
     app = QApplication(sys.argv)
     app.setOrganizationName("Pisi Linux")
     app.setApplicationName("Pisi Player")
-    app.setApplicationVersion("0.7")
+    app.setApplicationVersion("0.8")
     pisiplayer = PisiPlayer()
     pisiplayer.show()
 
