@@ -8,6 +8,7 @@ Uygulama Pisi Linux üzerinde sorunsuz(!) çalışmaktadır. Başka dağıtımla
 
 ## Kurulum
 
+sudo pip3 install youtube-dl
 sudo python3 setup.py install
 
 ## Bağımlılıklar
