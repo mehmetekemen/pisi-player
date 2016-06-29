@@ -21,6 +21,8 @@ class CCDialog(QDialog):
 
         self.combobox = QComboBox()
         self.combobox.addItems(["ISO 8859-9", "UTF-8"])
+        self.combobox.setStyleSheet("QComboBox {background-color: rgba(22, 22, 22, 150); border-color:  rgba(22, 22, 22, 150);" \
+                           " color:white; font-weight:bold;}")
         self.combobox.setCurrentText(settings().value("Subtitle/codec"))
 
         layout.addWidget(self.combobox)
