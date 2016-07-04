@@ -60,7 +60,7 @@ class YoutubeWidget(QWidget):
         comboBox = QComboBox()
         comboBox.setFixedHeight(30)
         comboBox.addItems(["small", "medium", "hd720"])
-        comboBox.setCurrentText(settings().value("Youtube/quality"))
+        comboBox.setCurrentText(settings().value("Youtube/quality") or "medium")
         comboBox.setStyleSheet("QComboBox {background-color: white; color: black; border-radius: 3px;\
                                      border-color: lightgray; border-style: solid; border-width:2px; padding-left:5px;} \
                                      QComboBox::down-arrow {image: url(/usr/share/icons/breeze/actions/24/arrow-down)} \
@@ -77,7 +77,7 @@ class YoutubeWidget(QWidget):
         comboBox2 = QComboBox()
         comboBox2.setFixedHeight(30)
         comboBox2.addItems(["webm", "mp4"])
-        comboBox2.setCurrentText(settings().value("Youtube/format"))
+        comboBox2.setCurrentText(settings().value("Youtube/format") or "mp4")
         comboBox2.setStyleSheet("QComboBox {background-color: white; color: black; border-radius: 3px;\
                                      border-color: lightgray; border-style: solid; border-width:2px; padding-left:5px;} \
                                      QComboBox::down-arrow {image: url(/usr/share/icons/breeze/actions/24/arrow-down)} \
