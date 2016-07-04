@@ -24,8 +24,6 @@ python3-qt5, pyqt5tools(derleme - pyrcc5, pylupdate5, lrelease5), python3-setupt
 * Youtube butonuna tıkladığınızda açılan dialoga youtube linki yapıştırıp, youtube videosu oynatabiliyor.
 * Altyazı rengi, arkaplan rengi ve yazıtipi ayarlayanabiliyor.
 
-Altyazı gösterme özelliği ile ilgili bilgiler kararlı değildir!
-
 ## Fare ve Klavye KısaYolları
 
 * Sürükle-bırak ile video oynatabilir ve altyazı ekleyebilirsiniz(Video ile aynı dizin ve isimde olan altyazılar otomatik algılanır).

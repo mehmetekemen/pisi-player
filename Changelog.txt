@@ -1,3 +1,9 @@
+# Version 0.9
+
+* Youtube videoları için çözünürlük ve format ayarlama eklendi.
+* Altyazı rengi ve yazı tipi ayarlama eklendi.
+* Ayarlar ve Youtube izle dialogları popup olarak değiştirildi.
+
 
 # Version 0.8
 

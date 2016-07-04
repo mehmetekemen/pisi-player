@@ -200,7 +200,7 @@ def main():
     app = QApplication(sys.argv)
     app.setOrganizationName("Pisi Linux")
     app.setApplicationName("Pisi Player")
-    app.setApplicationVersion("0.8")
+    app.setApplicationVersion("0.9")
     pisiplayer = PisiPlayer()
     pisiplayer.show()
 
