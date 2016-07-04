@@ -58,15 +58,14 @@ class PisiPlayer(QGraphicsView):
         self.player.playerPlayOrOpen(qApp.arguments())
 
         self.settings_dialog = SettingsDialog(self)
-        self.scene().addWidget(self.settings_dialog)
 
         self.tube_dialog = TubeDialog(self)
-        self.scene().addWidget(self.tube_dialog)
 
         self.cc_dialog = CCDialog(self)
         self.scene().addWidget(self.cc_dialog)
 
         self.cc_dialog.subtitleCodecChanged.connect(self.subtitleitem.reParse)
+        self.settings_dialog.settingsChanged.connect(self.subtitleitem.settingsChanged)
 
     def settingsDialog(self):
         self.settings_dialog.setVisible(not self.settings_dialog.isVisible())
@@ -150,12 +149,6 @@ class PisiPlayer(QGraphicsView):
         self.player.setSize(QSizeF(event.size().width(), event.size().height()))
         self.bar.setGeometry(0, event.size().height()-self.bar.height(), event.size().width(), self.bar.height())
         self.subtitleitem.setPos(QPointF((event.size().width()-self.subtitleitem.document().size().width())/2, event.size().height() - 150))
-        self.tube_dialog.setGeometry((event.size().width()-self.tube_dialog.width())/2,
-                                         (event.size().height()-self.tube_dialog.height())/2,
-                                         self.tube_dialog.width(), self.tube_dialog.height())
-        self.settings_dialog.setGeometry(event.size().width() - self.settings_dialog.width() - 30,
-                                         event.size().height() - self.settings_dialog.height() - (20 + self.bar.height()),
-                                         self.settings_dialog.width(), self.settings_dialog.height())
         self.cc_dialog.setGeometry(event.size().width() - self.cc_dialog.width() - 30,
                                          event.size().height() - self.cc_dialog.height() - (
                                          20 + self.bar.height()),
