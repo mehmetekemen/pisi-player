@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QToolBox, QPushButton, QColorDialog, QFontComboBox, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import (QToolBox, QPushButton, QColorDialog, QFontComboBox, QHBoxLayout, QWidget, QLabel,
+                             QComboBox, QVBoxLayout)
 from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import QPoint, Qt, pyqtSignal
 from .settings import settings
@@ -47,6 +48,60 @@ class YoutubeWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.parent = parent
+        vlayout = QVBoxLayout()
+        self.setLayout(vlayout)
+
+        hlayout = QHBoxLayout()
+        label = QLabel()
+        label.setText(self.tr("Çözünürlük:"))
+
+        hlayout.addWidget(label)
+
+        comboBox = QComboBox()
+        comboBox.setFixedHeight(30)
+        comboBox.addItems(["small", "medium", "hd720"])
+        comboBox.setCurrentText(settings().value("Youtube/quality"))
+        comboBox.setStyleSheet("QComboBox {background-color: white; color: black; border-radius: 3px;\
+                                     border-color: lightgray; border-style: solid; border-width:2px; padding-left:5px;} \
+                                     QComboBox::down-arrow {image: url(/usr/share/icons/breeze/actions/24/arrow-down)} \
+                                     QComboBox::drop-down {border:none;}")
+
+        hlayout.addWidget(comboBox)
+
+        hlayout2 = QHBoxLayout()
+        label2 = QLabel()
+        label2.setText(self.tr("Format"))
+
+        hlayout2.addWidget(label2)
+
+        comboBox2 = QComboBox()
+        comboBox2.setFixedHeight(30)
+        comboBox2.addItems(["webm", "mp4"])
+        comboBox2.setCurrentText(settings().value("Youtube/format"))
+        comboBox2.setStyleSheet("QComboBox {background-color: white; color: black; border-radius: 3px;\
+                                     border-color: lightgray; border-style: solid; border-width:2px; padding-left:5px;} \
+                                     QComboBox::down-arrow {image: url(/usr/share/icons/breeze/actions/24/arrow-down)} \
+                                     QComboBox::drop-down {border:none;}")
+
+        hlayout2.addWidget(comboBox2)
+
+
+        comboBox.currentTextChanged.connect(self.qualityChanged)
+        comboBox2.currentTextChanged.connect(self.formatChanged)
+
+        vlayout.addLayout(hlayout)
+        vlayout.addLayout(hlayout2)
+
+
+    def qualityChanged(self, quality):
+        settings().setValue("Youtube/quality", quality)
+        settings().sync()
+        self.parent.settingsChanged.emit()
+
+    def formatChanged(self, format):
+        settings().setValue("Youtube/format", format)
+        settings().sync()
+        self.parent.settingsChanged.emit()
 
 
 class FalancaWidget(QWidget): pass

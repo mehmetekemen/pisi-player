@@ -35,14 +35,14 @@ class Youtube(object):
 
         return exts
 
-    def get_video(self, quality="hd720"):
+    def get_video(self, quality="hd720", format="mp4"):
         if quality in self.get_video_formats():
             for i in self.video_list():
-                if i["format"] == quality and i["ext"] == "mp4":
+                if i["format"] == quality and i["ext"] == format:
                     return i["url"]
         else:
             for i in self.video_list():
-                if i["format"] == "medium" and i["ext"] == "mp4":
+                if i["format"] == "medium" and i["ext"] == format:
                     return i["url"]
 
     def video_id(self):
