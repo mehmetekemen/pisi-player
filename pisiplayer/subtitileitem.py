@@ -11,10 +11,14 @@ class SubtitleItemText(QGraphicsTextItem):
         super().__init__()
         self.parent = parent
 
-        self.font = QFont(settings().value("Player/subtitle_font") or "Noto Serif", 20)
-        self.setDefaultTextColor(settings().value("Player/subtitle_color") or QColor("white"))
+        self.font = QFont(settings().value("Subtitle/font") or "Noto Serif", 20)
+        self.setDefaultTextColor(settings().value("Subtitle/color") or QColor("white"))
         self.setFont(self.font)
 
+    def settingsChanged(self):
+        self.font = QFont(settings().value("Subtitle/font") or "Noto Serif", 20)
+        self.setDefaultTextColor(settings().value("Subtitle/color") or QColor("white"))
+        self.setFont(self.font)
 
     def paint(self, painter, op, wi):
         if self.toPlainText() != "":
@@ -83,9 +87,3 @@ class SubtitleItemText(QGraphicsTextItem):
 
                 else:
                     self.setPlainText("")
-
-"""
-pos değeri 100ms de bir döner.
-ctime ile arasında +-100ms varsa ekrana basılır.
-ltime-ctime süre kadar durur ve silinir.
-"""
